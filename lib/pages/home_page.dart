@@ -1,14 +1,13 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:minimal/notifier/carousel_notifier.dart';
-import 'package:minimal/pages/circular_container.dart';
+import 'package:minimal/pages/widget/circular_container.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final value = carouselManager.notifier;
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
@@ -17,8 +16,8 @@ class HomePage extends StatelessWidget {
             options: CarouselOptions(
               viewportFraction: 1,
               onPageChanged: (index, _) {
-                value.setPage(index);
-                disposableCarouselManager.notifier.setPage(index);
+                carouselManager.notifier.setPage(index);
+                // disposableCarouselManager.notifier.setPage(index);
               },
             ),
             items: [

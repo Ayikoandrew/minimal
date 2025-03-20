@@ -4,13 +4,16 @@ class CarouselState {
   final int index;
 
   const CarouselState({required this.index});
+
+  CarouselState copyWith({int? index}) =>
+      CarouselState(index: index ?? this.index);
 }
 
 class CarouselNotifier extends MMNotifier {
   CarouselNotifier() : super(CarouselState(index: 0));
 
   void setPage(int index) {
-    notify(CarouselState(index: index));
+    state.copyWith(index: index);
   }
 }
 
