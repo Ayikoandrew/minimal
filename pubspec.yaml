@@ -16,6 +16,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   minimal_mvn: ^2.0.1
   carousel_slider: ^5.0.0
+  logger: ^2.5.0
 
 dev_dependencies:
   flutter_test:

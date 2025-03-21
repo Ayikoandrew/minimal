@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:minimal/log/logger_minimal.dart';
 import 'package:minimal/notifier/carousel_notifier.dart';
 import 'package:minimal/pages/widget/circular_container.dart';
 
@@ -8,15 +9,18 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final notifier = carouselManager.notifier;
+    LoggerMinimal.info("Initial carousel index: ${notifier.state.index}");
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(8.0),
       child: Column(
         children: [
           CarouselSlider(
             options: CarouselOptions(
               viewportFraction: 1,
               onPageChanged: (index, _) {
-                carouselManager.notifier.setPage(index);
+                LoggerMinimal.debug("onPageChanged value $index");
+                notifier.setPage(index);
                 // disposableCarouselManager.notifier.setPage(index);
               },
             ),
@@ -27,16 +31,29 @@ class HomePage extends StatelessWidget {
             ],
           ),
           SizedBox(height: 12),
-          Row(
-            children: [
-              for (int i = 0; i < 3; i++)
-                CircularContainer(
-                  backgroundColor: Colors.green,
-                  width: 20,
-                  height: 4,
-                  margin: EdgeInsets.all(2),
-                ),
-            ],
+
+          ListenableBuilder(
+            listenable: notifier,
+            builder: (final _, final __) {
+              LoggerMinimal.debug(
+                "ListenableBuilder rebuilding, current index: ${notifier.state.index}",
+              );
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  for (int i = 0; i < 3; i++)
+                    CircularContainer(
+                      backgroundColor:
+                          notifier.state.index == i
+                              ? Colors.green
+                              : Colors.grey,
+                      width: 20,
+                      height: 4,
+                      margin: EdgeInsets.all(2),
+                    ),
+                ],
+              );
+            },
           ),
         ],
       ),
