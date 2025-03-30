@@ -17,12 +17,15 @@ dependencies:
   minimal_mvn: ^2.0.1
   carousel_slider: ^5.0.0
   logger: ^2.5.0
+  dart_mappable: ^4.5.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   flutter_lints: ^5.0.0
+  build_runner: ^2.4.15
+  dart_mappable_builder: ^4.5.0
 
 flutter:
 

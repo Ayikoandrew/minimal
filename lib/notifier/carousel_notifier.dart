@@ -1,22 +1,20 @@
-import 'package:minimal/log/logger_minimal.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:minimal_mvn/minimal_mvn.dart';
 
-class CarouselState {
-  int index;
+part 'carousel_notifier.mapper.dart';
 
-  CarouselState({required this.index});
+@MappableClass()
+class CarouselState with CarouselStateMappable {
+  final int index;
 
-  CarouselState copyWith({int? index}) =>
-      CarouselState(index: index ?? this.index);
+  const CarouselState({required this.index});
 }
 
 class CarouselNotifier extends MMNotifier {
   CarouselNotifier() : super(CarouselState(index: 0));
 
   void setPage(int index) {
-    LoggerMinimal.debug("setPage value from the notifier $index");
     final newState = state.copyWith(index: index);
-    LoggerMinimal.debug("Updated state: ${newState.index}");
     notify(newState);
   }
 }

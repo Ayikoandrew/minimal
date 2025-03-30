@@ -1,6 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:minimal/log/logger_minimal.dart';
 import 'package:minimal/notifier/carousel_notifier.dart';
 import 'package:minimal/pages/widget/circular_container.dart';
 
@@ -10,7 +9,6 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final notifier = carouselManager.notifier;
-    LoggerMinimal.info("Initial carousel index: ${notifier.state.index}");
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
@@ -19,9 +17,7 @@ class HomePage extends StatelessWidget {
             options: CarouselOptions(
               viewportFraction: 1,
               onPageChanged: (index, _) {
-                LoggerMinimal.debug("onPageChanged value $index");
                 notifier.setPage(index);
-                // disposableCarouselManager.notifier.setPage(index);
               },
             ),
             items: [
@@ -34,10 +30,7 @@ class HomePage extends StatelessWidget {
 
           ListenableBuilder(
             listenable: notifier,
-            builder: (final _, final __) {
-              LoggerMinimal.debug(
-                "ListenableBuilder rebuilding, current index: ${notifier.state.index}",
-              );
+            builder: (final _, final child) {
               return Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -64,7 +57,7 @@ class HomePage extends StatelessWidget {
 class RoundedContainer extends StatelessWidget {
   const RoundedContainer({
     super.key,
-    this.width = 250,
+    this.width = 350,
     this.height = 150,
     required this.imageUrl,
     this.applyImageRadius = true,
